@@ -1,0 +1,1 @@
+﻿-observer pattern on zone's ferry's .IsFull to trigger SendOldFerryBringNewOne
