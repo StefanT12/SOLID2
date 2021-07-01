@@ -52,7 +52,8 @@ namespace SOLID2.Base
                 }
                 
                 assignResult = _AssignEmployee(out assignedEmployee);
-                //normally, processing should be async and this code shoud be ran as soon as there would be a free employee
+                //normally, the terminal should run this code. A solution to this problem may be making a list of pending cars
+                //and have a function called CheckPendingCars that would constantly look if there is any free employee?
                 //TerminalBacklog.Log("No free employee.");
                 //return assignResult;
             }
@@ -76,7 +77,7 @@ namespace SOLID2.Base
                     TerminalBacklog.Log(assignedEmployee.ID + " total income: " + assignedEmployee.Income);
                     //the ferry could be full
                     Zones[i].ProcessFerry();
-                    //again, for simulation's sake, we don't free the employee when he finishes but after he finishes and there is a new job
+                    //again, for simulation's sake, we don't free the employee when he finishes but only when there is no new employee to take on a job
                     //employee.IsFree
                     return result;
                 }

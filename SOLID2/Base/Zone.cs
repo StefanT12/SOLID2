@@ -35,7 +35,6 @@ namespace SOLID2.Base
             return res;
         }
 
-        int _c;
         /// <summary>
         /// When the ferry is full, the zone approves its leave and calls in for another, empty ferry
         /// </summary>
@@ -43,10 +42,14 @@ namespace SOLID2.Base
         {
             if (!Ferry.IsFull) return;
 
-            var newFerry = FerryFactory.Create(Ferry.ID + _c.ToString(), Ferry.FerryType);
+            //we generate a "random" name
+            Random r = new Random();
+            string rName = Ferry.ID + r.Next(0, 10000).ToString();
+
+            var newFerry = FerryFactory.Create(rName, Ferry.FerryType);
             Ferry = newFerry;
+            
             TerminalBacklog.Log("Ferry in " + ID + " zone is full, this one will go and a new one will arrive.");
-            _c++;
         }
 
         public Zone(string id)
