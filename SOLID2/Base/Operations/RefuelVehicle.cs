@@ -12,12 +12,10 @@ namespace SOLID2.Base
     
             if (vFLevel < 10)
             {
-                vehicle.Fuel.Refuel();
-                var msg = employee.ID + " refuelled the " + vName + " from " + vFLevel + "% to"+ (int)(vehicle.Fuel.Level * 100)+"%";
-                TerminalBacklog.Log(msg);
-                return new Result { Code = ResultCode.Success, CodeMsg = msg };
+                vehicle.Fuel.Refuel();             
+                return Result.Success ($"{employee.ID} refuelled the {vName} from {vFLevel} % to {(int)(vehicle.Fuel.Level * 100)} %");
             }
-            return new Result { Code = ResultCode.Success, CodeMsg = vName + " had " + vFLevel + "% fuel." };
+            return Result.Success( $"{vName} had {vFLevel} % fuel.");
         }
     }
 }

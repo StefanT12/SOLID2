@@ -10,23 +10,27 @@ namespace SOLID2.Base
         public IFerry Ferry { get; private set; }
         public string ID { get;}
 
-        //runs the operations until the vehicle either gets embarked or fails at one of them
-
         public Result RunOperations(ITerminal terminal, IEmployee employee, IVehicle vehicle)
         {
-            var res = new Result
-            { 
-                Code = ResultCode.Fail,
-                CodeMsg = "No operations"
-            };
+            var res = Result.Fail("No operations");
+
             for (int i = 0; i < _operations.Count; i++)
             {
                 res = _operations[i].Run(Ferry, terminal.Pricing, employee, vehicle);
-                if (res.Code == ResultCode.Fail || res.Code == ResultCode.Embarked) 
+                
+                if(res.IsNotFit)//eliminates empty lines in the console
+                {
+                    continue;
+                }
+                
+                TerminalBacklog.Log(res.CodeMsg);
+
+                if (res.Code == ResultCode.Fail || res.Code == ResultCode.Embark) 
                 {
                     break;
                 };
             }
+
             return res;
         }
 
@@ -44,16 +48,21 @@ namespace SOLID2.Base
             var newFerry = FerryFactory.Create(rName, Ferry);
             Ferry = newFerry;
             
-            TerminalBacklog.Log("Ferry in " + ID + " zone is full, this one will go and a new one will arrive.");
+            TerminalBacklog.Log($"Ferry {ID} is full, a new one will arrive.");
+        }
+
+        public void ChangeFerry(IFerry newFerry)
+        {
+            Ferry = newFerry;
         }
 
         public Zone(string id, IFerry ferry, IEmbarkOperation emabarkOperation, params IRegularOperation [] regularOperations)
         {
             Ferry = ferry;
             _operations = new List<IOperation>(regularOperations.Length+1);
-            foreach(var op in regularOperations)
+            for(int i=0; i < regularOperations.Length; i++)
             {
-                _operations.Add(op);
+                _operations.Add(regularOperations[i]);
             }
             _operations.Add(emabarkOperation);
             ID = id;

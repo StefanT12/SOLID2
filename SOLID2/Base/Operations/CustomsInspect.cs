@@ -6,8 +6,7 @@ namespace SOLID2.Base
     {
         public Result Run(IFerry ferry, IPricing pricing, IEmployee employee, IVehicle vehicle)
         {
-            TerminalBacklog.Log("The " + vehicle.VehicleType.ToString() + " passed customs.");
-            return new Result { Code = ResultCode.Success };
+            return Result.Success($"The {vehicle.VehicleType} passed customs.");
         }
     }
 }

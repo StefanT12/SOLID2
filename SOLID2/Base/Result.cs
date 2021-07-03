@@ -17,11 +17,42 @@
         /// <summary>
         /// the vehicle was embarked during the operation
         /// </summary>
-        Embarked
+        Embark
     }
     public class Result
     {
         public ResultCode Code { get; set; }
         public string CodeMsg { get; set; }//in case it fails, we wanna see why
+
+        public bool Succeeded => Code == ResultCode.Success;
+        public bool Failed => Code == ResultCode.Fail;
+        public bool Embarked => Code == ResultCode.Embark;
+        public bool IsNotFit => Code == ResultCode.NotFit;
+
+        public static Result Embark(string employeeID, string ferryId, string vehicleType, string additionalMsg = "none")
+        {
+            return new Result { Code = ResultCode.Embark, CodeMsg = $"{employeeID} parked the vehicle {vehicleType} on ferry {ferryId}, Additional Notes: {additionalMsg}" };
+        }
+
+        public static Result Fail(string msg)
+        {
+            return new Result { Code = ResultCode.Fail, CodeMsg = msg };
+        }
+
+        public static Result Success(string msg)
+        {
+            return new Result { Code = ResultCode.Success, CodeMsg = msg };
+        }
+
+        public static Result Success()
+        {
+            return new Result { Code = ResultCode.Success};
+        }
+
+        public static Result NotFit()
+        {
+            return new Result { Code = ResultCode.NotFit };
+        }
+
     }
 }

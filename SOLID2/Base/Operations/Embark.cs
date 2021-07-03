@@ -15,16 +15,19 @@ namespace SOLID2.Base
                 var res = ferry.FillUpSpace(vehicle);
                 if(res.Code != ResultCode.Fail)
                 {
-                    employee.Pay(pricing.GetPricing(vehicle.VehicleType));
-                    TerminalBacklog.Log(employee.ID + " parked the " + vehicle.VehicleType.ToString() + " on ferry " + ferry.Id);
-                    return new Result { Code = ResultCode.Embarked };
+                    var price = pricing.GetPricing(vehicle.VehicleType);
+                    if(price < 0)
+                    {
+                        return Result.Fail($"Price for vehicle type {vehicle.VehicleType} was not registered");
+                    }
+                    employee.Pay(price);
+                    return Result.Embark(employee.ID, ferry.Id, vehicle.VehicleType.ToString());
                 }
-                TerminalBacklog.Log(employee.ID + " had no space to park the " + vehicle.VehicleType.ToString());
                 return res;
             }
-            else//not for this ferry
+            else
             {
-                return new Result { Code = ResultCode.NotFit };
+                return Result.NotFit();
             }
         }
 

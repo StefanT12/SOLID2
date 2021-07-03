@@ -13,5 +13,7 @@
         /// check if ferry is full, call a new one in that case
         /// </summary>
         public void ProcessFerry();
+
+        public void ChangeFerry(IFerry newFerry);
     }
 }

@@ -18,7 +18,7 @@ namespace SOLID2.Base
                 _vehicleSpaces.Add(vehicle);
                 return new Result() { Code = ResultCode.Success };
             }
-            return new Result { Code = ResultCode.Fail, CodeMsg = "No Free Space" };
+            return Result.Fail ("No Free Space");
         }
 
         public bool IsFull
