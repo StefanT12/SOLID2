@@ -1,4 +1,6 @@
-﻿namespace SOLID2.Base
+﻿using System;
+
+namespace SOLID2.Base
 {
     public static class VehicleFactory
     {
@@ -27,6 +29,17 @@
                 Fuel = new Gas(gasLevel), 
                 VehicleType = IVehicle.VehicleEnum.Bus 
             };
+        }
+
+        public static IVehicle RandomVehicle()
+        {
+            var random = new Random();
+            Array vehicEnumVals = Enum.GetValues(typeof(IVehicle.VehicleEnum));
+            return new Vehicle()
+            {
+                Fuel = new Gas(random.NextDouble()),
+                VehicleType = (IVehicle.VehicleEnum)vehicEnumVals.GetValue(random.Next(vehicEnumVals.Length))
+        };
         }
     }
 }

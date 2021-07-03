@@ -9,10 +9,6 @@
         /// </summary>
         /// <param name="operations">must be added in order</param>
         public Result RunOperations(ITerminal terminal, IEmployee employee, IVehicle vehicle);
-        /// <summary>
-        /// check if ferry is full, call a new one in that case
-        /// </summary>
-        public void ProcessFerry();
 
         public void ChangeFerry(IFerry newFerry);
     }

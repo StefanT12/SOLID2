@@ -6,6 +6,8 @@ namespace SOLID2
 {
     class Program
     {
+        private static readonly ConsoleKey _stopTerminalKey = ConsoleKey.E;
+        private static readonly ConsoleKey _processVehicleKey= ConsoleKey.Q;
         static void Main(string[] args)
         {
             Terminal terminal = new Terminal
@@ -18,8 +20,8 @@ namespace SOLID2
                 }),
                 Zones = new List<IZone>()
                 {
-                    new Zone("crossroads1", FerryFactory.Create("eutisania_small", FerryFactory.FerryType.Small), new Embark(IVehicle.VehicleEnum.Car, IVehicle.VehicleEnum.Van), new RefuelVehicle()),
-                    new Zone("crossroads2", FerryFactory.Create("eutisania_big", FerryFactory.FerryType.Large), new Embark(IVehicle.VehicleEnum.Bus, IVehicle.VehicleEnum.Truck), new CustomsInspect())
+                    new Zone("crossroads1", FerryFactory.CreateRandom(FerryFactory.FerryType.Small), new Embark(IVehicle.VehicleEnum.Car, IVehicle.VehicleEnum.Van), new RefuelVehicle()),
+                    new Zone("crossroads2", FerryFactory.CreateRandom(FerryFactory.FerryType.Large), new Embark(IVehicle.VehicleEnum.Bus, IVehicle.VehicleEnum.Truck), new CustomsInspect())
                 },
                 Employees = new List<IEmployee>()
                 {
@@ -29,10 +31,25 @@ namespace SOLID2
                 }
             };
 
-            terminal.ProcessVehicle(VehicleFactory.GasCar(0.2));
-            terminal.ProcessVehicle(VehicleFactory.Truck(0.05));
-            terminal.ProcessVehicle(VehicleFactory.Bus(0.33));
-            terminal.ProcessVehicle(VehicleFactory.GasCar(0.01));
+            Console.Write("\nFerry Terminal App Initiated...");
+            Console.Write($"\nPress '{_stopTerminalKey}' to shut down Ferry Terminal App...");
+            Console.Write($"\nPress '{_processVehicleKey}' to proccess a vehicle...");
+
+            while (true)
+            {
+                var key = Console.ReadKey(true).Key;
+
+                if (key == _processVehicleKey)
+                {
+                   Console.Write("\n");
+                   terminal.ProcessVehicle(VehicleFactory.RandomVehicle());
+                }
+                if (key == _stopTerminalKey)
+                {
+                    Console.Write("\n");
+                    break;
+                }
+            }
         }
     }
 }
