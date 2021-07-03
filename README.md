@@ -31,6 +31,10 @@ Round 1:
    The application must display whether the cargo doors of the current vehicle are open or closed.
 5. Track the car from the arrival to the ferry.
    The application must display the name of the last location visited (crossroads don't count).
+6. Rotate all employees in order in a way that when one is working 2 are on a break.
+7. Store all vehicles parked in the ferry.
+8. Once a ferry is full, it leaves the Terminal and a new one takes its place.
+9. Terminal profits must be displayed.
 
             A
             |
