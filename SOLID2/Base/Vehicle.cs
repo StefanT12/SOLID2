@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SOLID2.Base
 {
@@ -27,24 +25,22 @@ namespace SOLID2.Base
 
     public interface IVehicle
     {
-        public string GetType();
-        public VehicleType VehicleType { get; }
+        [Flags]
+        public enum VehicleEnum
+        {
+            Car = 0,
+            Van = 1,
+            Truck = 2,
+            Bus = 4
+        }
+
+        public VehicleEnum VehicleType{ get; }
         public IFuel Fuel { get; }
     }
 
     public class Vehicle: IVehicle
     {
-        /// <summary>
-        /// gets vehicle type as string
-        /// </summary>
-        /// <returns></returns>
-        public new string GetType() { return VehicleType.ToString(); } 
-        public VehicleType VehicleType { get; set; }
+        public IVehicle.VehicleEnum VehicleType { get; set; }
         public IFuel Fuel { get; set; }
-
-        public Vehicle()
-        {
-
-        }
     }
 }

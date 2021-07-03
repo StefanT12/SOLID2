@@ -5,8 +5,8 @@ namespace SOLID2.Base
     public interface ITerminal
     {
         public IPricing Pricing { get; }
-        public List<IZone> Zones {get;set;}
-        public List<IEmployee> Employees { get; set; }
+        public IList<IZone> Zones {get;}
+        public IList<IEmployee> Employees { get;}
         public Result ProcessVehicle(IVehicle vehicle);
     }
 }

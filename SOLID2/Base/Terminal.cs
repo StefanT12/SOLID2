@@ -1,35 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace SOLID2.Base
 {
     public class Terminal: ITerminal
     {
         public IPricing Pricing { get; set; }
-        public List<IZone> Zones { get; set; }
-        public List<IEmployee> Employees { get; set; }
+        public IList<IZone> Zones { get; set; }
+        public IList<IEmployee> Employees { get; set; }
 
         private Result _AssignEmployee(out IEmployee assignedEmployee)
         {
-            assignedEmployee = null;
-
-            foreach (var employee in Employees)
-            {
-                if (employee.IsFree) assignedEmployee = employee;
-            }
+            assignedEmployee = Employees.FirstOrDefault(x=>x.IsAvailable);
             //no free employee
             if (assignedEmployee == null)
             {
                 return new Result()
                 {
                     Code = ResultCode.Fail,
-                    CodeMsg = "No free employee"
+                    CodeMsg = "No available employee"
                 };
             }
 
             //employee is occupied
-            assignedEmployee.IsFree = false;
+            assignedEmployee.IsAvailable = false;
             
             return new Result() { Code = ResultCode.Success };
         }
@@ -37,10 +31,10 @@ namespace SOLID2.Base
         public Result ProcessVehicle(IVehicle vehicle)
         {
             //prepare
-            var vType = vehicle.GetType(); 
-            IEmployee assignedEmployee = null;
+            var vType = vehicle.VehicleType.ToString();
+            IEmployee assignedEmployee;
             //announce vehicle arrival
-            TerminalBacklog.Log("A " + vType + " arrived.");
+            TerminalBacklog.Log($"A {vType} arrived.");
             //search suitable employee
             var assignResult = _AssignEmployee(out assignedEmployee);
             //here we "free" all employees in case we dont find one free, this is to rotate through all of them for simulation's sake 
@@ -48,7 +42,7 @@ namespace SOLID2.Base
             {
                 foreach (var employee in Employees)
                 {
-                    employee.IsFree = true;
+                    employee.IsAvailable = true;
                 }
                 
                 assignResult = _AssignEmployee(out assignedEmployee);

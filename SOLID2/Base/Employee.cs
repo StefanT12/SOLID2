@@ -10,19 +10,19 @@ namespace SOLID2.Base
 
         public double Income { get; private set; }
 
-        public double Cut { get; set; }
+        public double Cut { get;}
 
-        public bool IsFree { get; set; }
+        public bool IsAvailable { get; set; } = true;
 
         public void Pay(double amount)
         {
             Income += Cut * amount;
         }
 
-        public Employee(string id)
+        public Employee(string id, double cut)
         {
             ID = id;
-            IsFree = true;
+            Cut = cut;
         }
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SOLID2.Base
+﻿namespace SOLID2.Base
 {
     public interface IOperation 
     {

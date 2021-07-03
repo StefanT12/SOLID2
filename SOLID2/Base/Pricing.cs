@@ -1,45 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace SOLID2.Base
 {
     public class Pricing : IPricing
     {
-        private Dictionary<VehicleType, double> _pricePerType;
+        private IDictionary<IVehicle.VehicleEnum, double> _pricePerType;
 
         /// <summary>
         /// returns negative if the price is not registered
         /// </summary>
-        /// <param name="vehicleType"></param>
+        /// <param name="VehicleType"></param>
         /// <returns></returns>
-        public double GetPricing(VehicleType vehicleType)
+        public double GetPricing(IVehicle.VehicleEnum VehicleType)
         {
             double price = -1;
-            bool found = _pricePerType.TryGetValue(vehicleType, out price);
+            bool found = _pricePerType.TryGetValue(VehicleType, out price);
 
             if (!found)
             {
-                throw new NullReferenceException("Type: " + vehicleType.ToString() + "does not have its price registered!");
+                throw new NullReferenceException("Type: " + VehicleType.ToString() + "does not have its price registered!");
             }
             return price;
         }
-
-        public void RegisterPricing(VehicleType vehicleType, double price)
+        public Pricing(IDictionary<IVehicle.VehicleEnum, double> pricePerType)
         {
-            if (_pricePerType.ContainsKey(vehicleType))
-            {
-                _pricePerType[vehicleType] = price;
-            }
-            else
-            {
-                _pricePerType.Add(vehicleType, price);
-            }
-        }
-
-        public Pricing()
-        {
-            _pricePerType = new Dictionary<VehicleType, double>();
+            _pricePerType = pricePerType;
         }
     }
 }

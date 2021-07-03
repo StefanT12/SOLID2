@@ -1,20 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace SOLID2.Base
 {
-    public enum FerryType
-    {
-        Large,
-        Small
-    }
+
     public interface IFerry
     {
-        public string ID { get; }
-        public FerryType FerryType { get; }
-        public void RegisterSpace();
+        public string Id { get; }
         public Result FillUpSpace(IVehicle vehicle);
         public bool IsFull { get; }
+        public int Size { get; }
     }
 }
