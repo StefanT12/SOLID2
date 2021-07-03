@@ -1,11 +1,11 @@
-# SOLID2
- 
-https://github.com/Jinjinov/job-interview-solid-principles-test/tree/f3e93906da129dc2e5939379d31129e08f3631e4
-
-# Job interview: SOLID principles test
+ # SOLID principles test/exercise:
 A programming job interview questions that test the understanding of basic principles and patterns
 
-The test should be solved in two rounds, the text of the second round given to the job applicant only after they solve the first round. The purpose of these rounds is to check if the applicant can plan ahead and write extensible code before additional features are known.
+The test should be solved in two rounds, their purpose is to check if the applicant can plan ahead and write extensible code before additional features are known.
+
+The test was modified as some of the implications - have ferries with spaces - were redundant or not fully extended - how do employees work -; for more details, please check the original test at the link below:
+
+https://github.com/Jinjinov/job-interview-solid-principles-test/tree/f3e93906da129dc2e5939379d31129e08f3631e4
 
 ---
 
@@ -31,7 +31,9 @@ Round 1:
    The application must display whether the cargo doors of the current vehicle are open or closed.
 5. Track the car from the arrival to the ferry.
    The application must display the name of the last location visited (crossroads don't count).
-
+   
+   
+   
             A
             |
         G - 1 - S
@@ -45,17 +47,24 @@ Round 1:
         C - Customs inspection
         2 - crossroad 2
         L - Large ferry
+        
+   
+6. Rotate all employees in order in a way that when one is working 2 are on a break.
+7. Store all vehicles parked in the ferry.
+8. Once a ferry is full, it leaves the Terminal and a new one takes its place.
+9. Terminal profits must be displayed.
+
 
 Round 2:
 
-6. Add another terminal employee that does the exact same job.
+1. Add another terminal employee that does the exact same job.
    His salary is 11% of every ferry ticket.
    The application must display his income.
-7. Add a battery recharge station.
+2. Add a battery recharge station.
    Every electric car arrives with a random battery charge.
    If the battery is below 10% then the terminal employee must recharge it.
    The application must display the battery charge for the current vehicle.
-8. Add a new eco ferry that carries 10 eco cars (electric cars pay 1€ / hybrid cars pay 2€).
+3. Add a new eco ferry that carries 10 eco cars (electric cars pay 1€ / hybrid cars pay 2€).
    Hybrid cars don't have to be refilled with gas if they have more than 50% battery charge.
    Hybrid cars don't have to have the battery recharged if they have more than 50% of gas left.
 
@@ -78,4 +87,3 @@ Round 2:
         3 - crossroad 3
         E - Eco ferry
 
-In the first round you were asked to write modular and easily extensible code. It there anything you could have done differently in the first round that would make the last three tasks of the second round easier? If yes, what exactly?
