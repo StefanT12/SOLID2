@@ -18,8 +18,9 @@ namespace SOLID2.Base
                 foreach (var employee in Employees)
                 {
                     employee.IsAvailable = true;
-                    assignedEmployee = Employees[0];
                 }
+
+                assignedEmployee = Employees[0];
             }
 
             //employee is occupied
