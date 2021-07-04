@@ -35,7 +35,6 @@ namespace SOLID2.Base
 
                 log.Add($"The [{vehicle.VehicleType}] passed customs.");
 
-
                 cVehicle.CargoDoorIsOpen = false;
 
                 log.Add($"Closing [{vehicle.VehicleType}] cargo door.");
