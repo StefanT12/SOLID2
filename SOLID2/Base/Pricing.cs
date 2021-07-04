@@ -7,12 +7,6 @@ namespace SOLID2.Base
     public class Pricing : IPricing
     {
         private IDictionary<IVehicle.VehicleEnum, double> _pricePerType;
-
-        /// <summary>
-        /// returns negative if the price is not registered
-        /// </summary>
-        /// <param name="VehicleType"></param>
-        /// <returns></returns>
         public double GetPricing(IVehicle.VehicleEnum VehicleType)
         {
             if(!_pricePerType.TryGetValue(VehicleType, out double price))

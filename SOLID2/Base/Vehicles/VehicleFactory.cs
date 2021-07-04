@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 namespace SOLID2.Base
 {
+    //TODO Replace the switch with a generic approach
     public static class VehicleFactory
     {
         private static readonly Random _random;

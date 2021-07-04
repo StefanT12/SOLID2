@@ -5,19 +5,19 @@ namespace SOLID2.Base
     public enum ResultCode
     {
         /// <summary>
-        /// all went according to plan
+        /// All went according to plan at the location.
         /// </summary>
         Success,
         /// <summary>
-        /// something wrong happened
+        /// Something went wrong at the location.
         /// </summary>
         Fail,
         /// <summary>
-        /// the vehicle does not fit with the operation
+        /// The vehicle did not fit with the location.
         /// </summary>
         NotFit,
         /// <summary>
-        /// the vehicle was embarked during the operation
+        /// The vehicle was embarked at the location.
         /// </summary>
         Embark
     }

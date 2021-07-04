@@ -10,6 +10,7 @@ namespace SOLID2.Base
         public IList<IEmployee> Employees { get; }
 
         private readonly IList<ILocation> _locations;
+
         private IEmployee _AssignEmployee()
         {
             var assignedEmployee = Employees.FirstOrDefault(x=>x.IsAvailable);
@@ -77,6 +78,5 @@ namespace SOLID2.Base
                 }
             }
         }
-
     }
 }

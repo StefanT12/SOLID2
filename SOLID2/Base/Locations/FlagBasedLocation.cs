@@ -7,12 +7,12 @@ namespace SOLID2.Base.Locations
 {
     public abstract class FlagBasedLocation : ILocation
     {
-        private readonly IVehicle.VehicleEnum VehicleEnums;
+        private readonly IVehicle.VehicleEnum _vehicleEnums;
 
         public Result RunOperations(IEmployee employee, IVehicle vehicle)
         {
             
-            if ((VehicleEnums & vehicle.VehicleType) == vehicle.VehicleType)
+            if ((_vehicleEnums & vehicle.VehicleType) == vehicle.VehicleType)
             {
                 return InternalLogic(employee, vehicle);
             }
@@ -25,7 +25,7 @@ namespace SOLID2.Base.Locations
         {
             for (int i = 0; i < vehicleType.Length; i++)
             {
-                VehicleEnums |= vehicleType[i];
+                _vehicleEnums |= vehicleType[i];
             }
         }
     }
