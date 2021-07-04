@@ -85,4 +85,5 @@ Round 2:
         B - Battery recharge station
         3 - crossroad 3
         E - Eco ferry
+ # SOLID principles test/exercise:
 
