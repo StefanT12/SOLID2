@@ -16,7 +16,7 @@ namespace SOLID2.Base
             if (_vehicleSpaces.Count < Size)
             {
                 _vehicleSpaces.Add(vehicle);
-                return new Result() { Code = ResultCode.Success };
+                return Result.Success();
             }
             return Result.Fail ("No Free Space");
         }

@@ -28,10 +28,12 @@ namespace SOLID2.Base
         [Flags]
         public enum VehicleEnum
         {
-            Car = 0,
-            Van = 1,
-            Truck = 2,
-            Bus = 4
+            Car = 1,
+            Van = 2,
+            Truck = 4,
+            Bus = 8
+            //Hybrid = 8,
+            //Electric = 9
         }
 
         public VehicleEnum VehicleType{ get; }

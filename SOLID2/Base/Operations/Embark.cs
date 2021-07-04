@@ -1,43 +1,34 @@
 ﻿using SOLID2.Base.Interfaces;
+using SOLID2.Base.Operations;
 
 namespace SOLID2.Base
 {
-    public class Embark : IEmbarkOperation
+    public class Embark : Operation, IEmbarkOperation
     {
-        private readonly IVehicle.VehicleEnum VehicleEnums;
-       
-        public Result Run(IFerry ferry, IPricing pricing, IEmployee employee, IVehicle vehicle)
+        private readonly IDockFerryAccess _dock;
+
+        private readonly IPricing _pricing;
+
+        protected override Result InternalLogic(IEmployee employee, IVehicle vehicle)
         {
-            
-            if ((VehicleEnums & vehicle.VehicleType) == vehicle.VehicleType)
+            var res = _dock.Ferry.FillUpSpace(vehicle);
+            if (res.Code != ResultCode.Fail)
             {
-                //we need to check for available spaces
-                var res = ferry.FillUpSpace(vehicle);
-                if(res.Code != ResultCode.Fail)
+                var price = _pricing.GetPricing(vehicle.VehicleType);
+                if (price < 0)
                 {
-                    var price = pricing.GetPricing(vehicle.VehicleType);
-                    if(price < 0)
-                    {
-                        return Result.Fail($"Price for vehicle type {vehicle.VehicleType} was not registered");
-                    }
-                    employee.Pay(price);
-                    return Result.Embark(employee.ID, ferry.Id, vehicle.VehicleType.ToString());
+                    return Result.Fail($"Price for vehicle type {vehicle.VehicleType} was not registered");
                 }
-                return res;
+                employee.Pay(price);
+                return Result.Embark(employee.ID, _dock.Ferry.Id, vehicle.VehicleType.ToString());
             }
-            else
-            {
-                return Result.NotFit();
-            }
+            return res;
         }
 
-        public Embark(params IVehicle.VehicleEnum[] vehicleType)
+        public Embark(IPricing pricing, IDockFerryAccess dock, params IVehicle.VehicleEnum[] vehicleType): base(vehicleType)
         {
-            //append to flag
-            for (int i=0; i< vehicleType.Length; i++)
-            {
-                VehicleEnums |= vehicleType[i];
-            }
+            _pricing = pricing;
+            _dock = dock;
         }
     }
 }

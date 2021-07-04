@@ -2,6 +2,6 @@
 {
     public interface IOperation 
     {
-        public Result Run(IFerry ferry, IPricing pricing, IEmployee employee, IVehicle vehicle);
+        public Result Run(IEmployee employee, IVehicle vehicle);
     }
 }

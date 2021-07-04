@@ -4,42 +4,23 @@ namespace SOLID2.Base
 {
     public static class VehicleFactory
     {
-        public static IVehicle GasCar(double gasLevel)
-        {
-            return new Vehicle() 
-            { 
-                Fuel = new Gas(gasLevel),
-                VehicleType= IVehicle.VehicleEnum.Car 
-            };
-        }
-
-        public static IVehicle Truck(double gasLevel)
-        {
-            return new Vehicle() 
-            { 
-                Fuel = new Gas(gasLevel), 
-                VehicleType = IVehicle.VehicleEnum.Truck 
-            };
-        }
-
-        public static IVehicle Bus(double gasLevel)
-        {
-            return new Vehicle() 
-            { 
-                Fuel = new Gas(gasLevel), 
-                VehicleType = IVehicle.VehicleEnum.Bus 
-            };
-        }
+        private static readonly Random _random;
+        private static readonly IVehicle.VehicleEnum[] _vehicEnumVals;
 
         public static IVehicle RandomVehicle()
         {
-            var random = new Random();
-            Array vehicEnumVals = Enum.GetValues(typeof(IVehicle.VehicleEnum));
+  
             return new Vehicle()
             {
-                Fuel = new Gas(random.NextDouble()),
-                VehicleType = (IVehicle.VehicleEnum)vehicEnumVals.GetValue(random.Next(vehicEnumVals.Length))
-        };
+                Fuel = new Gas(_random.NextDouble()),
+                VehicleType = (IVehicle.VehicleEnum)_vehicEnumVals.GetValue(_random.Next(_vehicEnumVals.Length))
+            };
         }
+        static VehicleFactory()
+        {
+            _random = new Random();
+            _vehicEnumVals = (IVehicle.VehicleEnum[])Enum.GetValues(typeof(IVehicle.VehicleEnum));
+        }
+
     }
 }

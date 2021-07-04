@@ -1,12 +1,18 @@
 ﻿using SOLID2.Base.Interfaces;
+using SOLID2.Base.Operations;
 
 namespace SOLID2.Base
 {
-    public class CustomsInspect : IRegularOperation
+    public class CustomsInspect : Operation, IRegularOperation
     {
-        public Result Run(IFerry ferry, IPricing pricing, IEmployee employee, IVehicle vehicle)
+        protected override Result InternalLogic(IEmployee employee, IVehicle vehicle)
         {
             return Result.Success($"The {vehicle.VehicleType} passed customs.");
+        }
+
+        public CustomsInspect(params IVehicle.VehicleEnum[] vehicleType) : base(vehicleType)
+        {
+            
         }
     }
 }

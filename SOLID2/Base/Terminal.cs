@@ -1,14 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using SOLID2.Base.Interfaces;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace SOLID2.Base
 {
     public class Terminal: ITerminal
     {
-        public IPricing Pricing { get; set; }
-        public IList<IZone> Zones { get; set; }
-        public IList<IEmployee> Employees { get; set; }
-       
+        public IList<IEmployee> Employees { get; }
+
+        private readonly IList<IOperation> _operations;
         private IEmployee _AssignEmployee()
         {
             var assignedEmployee = Employees.FirstOrDefault(x=>x.IsAvailable);
@@ -23,40 +23,65 @@ namespace SOLID2.Base
                 assignedEmployee = Employees[0];
             }
 
-            //employee is occupied
             assignedEmployee.IsAvailable = false;
 
             return assignedEmployee;
         }
 
-        public Result ProcessVehicle(IVehicle vehicle)
+        public IList<string> ProcessVehicle(IVehicle vehicle)
         {
+            var log = new List<string>();
+
             var vType = vehicle.VehicleType.ToString();
 
-            TerminalBacklog.Log($"A {vType} arrived.");
+            log.Add($"A {vType} arrived.");
 
             IEmployee assignedEmployee = _AssignEmployee();
 
-            TerminalBacklog.Log($"{ assignedEmployee.ID} will handle the {vType}");
+            log.Add($"{ assignedEmployee.ID} will handle the {vType}");
 
-            var result = new Result();
-            for(int i = 0; i < Zones.Count; i++)
+            for(int i = 0; i < _operations.Count; i++)
             {
-                result = Zones[i].RunOperations(this, assignedEmployee, vehicle);
-                if (result.Code == ResultCode.Fail)
+                var result = _operations[i].Run(assignedEmployee, vehicle);
+                
+                if (!result.IsNotFit)
                 {
-                    return result;
+                    log.Add(result.CodeMsg);
                 }
-                if(result.Code == ResultCode.Embark)
+                
+                if (result.Failed )
                 {
-                    TerminalBacklog.Log($"{ assignedEmployee.ID} total income: {assignedEmployee.Income}");
+                    break;
+                }
 
-                    return result;
+                if (result.Embarked)
+                {
+                    log.Add($"{ assignedEmployee.ID} total income: {assignedEmployee.Income}");
+                    break;
                 }
             }
+            return log;
+        }
 
-            TerminalBacklog.Log($"The unexpected happened, { assignedEmployee.ID }, Code: {result.Code.ToString()} Vehicle: {vType }, Code Message: {result.CodeMsg}");
-            return result;
+        public Terminal(IList<IEmbarkOperation> embarkOperations, IList<IRegularOperation> regularOperations, IList<IEmployee> employees)
+        {
+            Employees = employees;
+
+            var totalCount = regularOperations.Count + embarkOperations.Count;
+
+            _operations = new List<IOperation>(totalCount);
+
+            for (int i = 0; i < totalCount; i++)
+            {
+                if(i < regularOperations.Count)
+                {
+                    _operations.Add(regularOperations[i]);
+                }
+                else
+                {
+                    _operations.Add(embarkOperations[i - regularOperations.Count]);
+                }
+            }
         }
 
     }

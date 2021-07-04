@@ -21,8 +21,8 @@
     }
     public class Result
     {
-        public ResultCode Code { get; set; }
-        public string CodeMsg { get; set; }//in case it fails, we wanna see why
+        public ResultCode Code { get; }
+        public string CodeMsg { get; set; }
 
         public bool Succeeded => Code == ResultCode.Success;
         public bool Failed => Code == ResultCode.Fail;
@@ -31,28 +31,32 @@
 
         public static Result Embark(string employeeID, string ferryId, string vehicleType, string additionalMsg = "none")
         {
-            return new Result { Code = ResultCode.Embark, CodeMsg = $"{employeeID} parked the vehicle {vehicleType} on ferry {ferryId}, Additional Notes: {additionalMsg}" };
+            return new Result(ResultCode.Embark) { CodeMsg = $"{employeeID} parked the vehicle {vehicleType} on ferry {ferryId}, Additional Notes: {additionalMsg}" };
         }
 
         public static Result Fail(string msg)
         {
-            return new Result { Code = ResultCode.Fail, CodeMsg = msg };
+            return new Result(ResultCode.Fail) { CodeMsg = msg };
         }
 
         public static Result Success(string msg)
         {
-            return new Result { Code = ResultCode.Success, CodeMsg = msg };
+            return new Result (ResultCode.Success) { CodeMsg = msg };
         }
 
         public static Result Success()
         {
-            return new Result { Code = ResultCode.Success};
+            return new Result(ResultCode.Success);
         }
 
         public static Result NotFit()
         {
-            return new Result { Code = ResultCode.NotFit };
+            return new Result(ResultCode.NotFit);
         }
 
+        public Result(ResultCode code)
+        {
+            Code = code;
+        }
     }
 }
