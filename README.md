@@ -49,7 +49,7 @@ Round 1:
         L - Large ferry
         
    
-6. Rotate all employees in order in a way that when one is working 2 are on a break.
+6. Rotate all employees so that an employee does not get one job after the other.
 7. Store all vehicles parked in the ferry.
 8. Once a ferry is full, it leaves the Terminal and a new one takes its place.
 
