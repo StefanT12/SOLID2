@@ -91,16 +91,19 @@ Round 2:
 By adhering to the single responsibility principle, each class should do one thing only, E.G
 
 Main classes
-  Terminal - processes Vehicle
-  Employees - holds employee data & functions to change it
-  RegularLocation - prepares vehicle for embarking (there are multiple such locations such as GasStation or ArrivalLocation)        
-  EmbarkLocation - embarks the vehicles (there multiple embark locations for multiple types of vehicles)
-  Dock - holds the ferry & methods to change it with another ferry 
-  Ferry - holds the ferry data (places occupied/free) & methods to change it   
-  FerryTrafficSimulation - simulates the ferry trafic (when one ferry is full, it will be replaced with an empty randomly generated one)    
+1. Terminal - processes Vehicle
+2. Employees - holds employee data & functions to change it
+3. RegularLocation - prepares vehicle for embarking (there are multiple such locations such as GasStation or ArrivalLocation)        
+4. EmbarkLocation - embarks the vehicles (there multiple embark locations for multiple types of vehicles)
+5. Dock - holds the ferry & methods to change it with another ferry 
+6. Ferry - holds the ferry data (places occupied/free) & methods to change it   
+  
+Miscellaneous
+1. FerryTrafficSimulation - simulates the ferry trafic (when one ferry is full, it will be replaced with an empty randomly generated one)
+2. FerryRandNameGen - generates a random name for ferries  
       
 RegularLocations:
-  ArrivalLocation - processes the payment for embarking
-  GasStation - refuels gas based vehicles
-  RechargeLocation - recharges electric based vehicles
-  CustomsLocation - inspects the vehicles that have cargo (Van, Truck)
+1. ArrivalLocation - processes the payment for embarking
+2. GasStation - refuels gas based vehicles
+3. RechargeLocation - recharges electric based vehicles
+4. CustomsLocation - inspects the vehicles that have cargo (Van, Truck)
