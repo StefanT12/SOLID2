@@ -3,7 +3,7 @@ A programming job interview questions that test the understanding of basic princ
 
 The test should be solved in two rounds, their purpose is to check if the applicant can plan ahead and write extensible code before additional features are known.
 
-The test was modified as some of the implications - have ferries with spaces - were redundant or not fully extended - how do employees work -; for more details, please check the original test at the link below:
+The test was modified so as to make it more challenging.
 
 https://github.com/Jinjinov/job-interview-solid-principles-test/tree/f3e93906da129dc2e5939379d31129e08f3631e4
 
