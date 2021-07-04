@@ -2,7 +2,7 @@
 {
     public interface IEmployee 
     {
-        public string ID { get; }
+        public string Id { get; }
         public double Income { get; }
         public double Cut { get; }
         public bool IsAvailable { get; set; }

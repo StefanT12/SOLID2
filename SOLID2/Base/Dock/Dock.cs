@@ -11,7 +11,7 @@ namespace SOLID2.Base
         public string ChangeFerry(IFerry newFerry)
         {
             
-            var msg = $"Ferry {Ferry.Id} left the terminal, Ferry {newFerry.Id} entered the terminal";
+            var msg = $"Ferry [{Ferry.Id}] left the docking area, Ferry [{newFerry.Id}] entered the docking area";
             Ferry = newFerry;
             return msg;
         }

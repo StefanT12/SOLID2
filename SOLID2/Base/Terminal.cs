@@ -33,13 +33,11 @@ namespace SOLID2.Base
         {
             var log = new List<string>();
 
-            var vType = vehicle.VehicleType.ToString();
-
-            log.Add($"A [{vType}] awaits at [Arrival].");
+            log.Add($"A [{vehicle.VehicleType}] arrived at the entrance.");
 
             IEmployee assignedEmployee = _AssignEmployee();
 
-            log.Add($"{ assignedEmployee.ID} will handle the {vType}");
+            log.Add($"[{assignedEmployee.Id}] will handle the [{vehicle.VehicleType}].");
 
             for(int i = 0; i < _locations.Count; i++)
             {
@@ -47,17 +45,12 @@ namespace SOLID2.Base
                 
                 if (!result.IsNotFit)
                 {
+                    log.Add("........");
                     log.AddRange(result.Log);
                 }
                 
-                if (result.Failed )
+                if (result.Failed || result.Embarked)
                 {
-                    break;
-                }
-
-                if (result.Embarked)
-                {
-                    log.Add($"{ assignedEmployee.ID} total income: {assignedEmployee.Income}");
                     break;
                 }
             }

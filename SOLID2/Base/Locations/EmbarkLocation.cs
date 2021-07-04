@@ -9,34 +9,19 @@ namespace SOLID2.Base
     {
         private readonly IDockFerryAccess _dock;
 
-        private readonly IPricing _pricing;
-
         protected override Result InternalLogic(IEmployee employee, IVehicle vehicle)
         {
             var log = new List<string>();
 
-            log.Add($"[{vehicle.VehicleType}] arrived at [Embark Location] for ferry {_dock.Ferry.Id}.");
+            log.Add($"[{vehicle.VehicleType}] arrived at [Embark Location] for ferry [{_dock.Ferry.Id}].");
 
             if (!_dock.Ferry.IsFull)
             {
-
-                log.Add($"[{employee.ID}] found space for [{vehicle.VehicleType}] on the ferry.");
-                
-                var price = _pricing.GetPricing(vehicle.VehicleType);
-                
-                if (price < 0)
-                {
-                    log.Add($"Price for vehicle type [{vehicle.VehicleType}] was not registered.");
-                    _dock.Ferry.PurgeLastVehicle();
-                    log.Add($"{vehicle.VehicleType} disembarked");
-                    return Result.Fail(log);
-                }
-
-                employee.Pay(price);
-                log.Add($"[{vehicle.VehicleType}] paid the ticked {price}USD, employee took {(int)(employee.Cut*100)} % , amounting to {price * employee.Cut}USD.");
+                log.Add($"[{employee.Id}] found a free parking place for [{vehicle.VehicleType}] on [{_dock.Ferry.Id}].");
                 
                 _dock.Ferry.Park(vehicle);
-                log.Add($"[{vehicle.VehicleType}] was embarked on ferry.");
+                
+                log.Add($"[{vehicle.VehicleType}] was parked on [{_dock.Ferry.Id}].");
 
                 return Result.Embark(log);
             }
@@ -45,9 +30,8 @@ namespace SOLID2.Base
             return Result.Fail(log);
         }
 
-        public EmbarkLocation(IPricing pricing, IDockFerryAccess dock, params IVehicle.VehicleEnum[] vehicleType): base(vehicleType)
+        public EmbarkLocation(IDockFerryAccess dock, params IVehicle.VehicleEnum[] vehicleType): base(vehicleType)
         {
-            _pricing = pricing;
             _dock = dock;
         }
     }

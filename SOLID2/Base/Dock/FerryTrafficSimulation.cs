@@ -17,11 +17,11 @@ namespace SOLID2.Base
                     
                     var res = dock.ChangeFerry(newFerry);
 
-                    return $"[SIM] {res}...";
+                    return $"SIMULATION: {res}.";
                 }
             }
 
-            return "[SIM] Ferries are still anchored near the docks...";
+            return "SIMULATION: Ferries are still anchored near the docks.";
         }
     }
 }

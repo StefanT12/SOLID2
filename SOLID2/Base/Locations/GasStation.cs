@@ -25,7 +25,7 @@ namespace SOLID2.Base
 
                     gasVehicle.Refuel();
                     
-                    log.Add($"[{employee.ID}] refuelled the [{vehicle.VehicleType}] from {oldLevels} % to {GetLevel(gasVehicle)} %.");
+                    log.Add($"[{employee.Id}] refuelled the [{vehicle.VehicleType}] from {oldLevels} % to {GetLevel(gasVehicle)} %.");
 
                     return Result.Success(log);
                 }

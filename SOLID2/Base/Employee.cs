@@ -6,7 +6,7 @@ namespace SOLID2.Base
 {
     public class Employee : IEmployee
     {
-        public string ID { get; private set; }
+        public string Id { get; private set; }
 
         public double Income { get; private set; }
 
@@ -21,7 +21,7 @@ namespace SOLID2.Base
 
         public Employee(string id, double cut)
         {
-            ID = id;
+            Id = id;
             Cut = cut;
         }
     }

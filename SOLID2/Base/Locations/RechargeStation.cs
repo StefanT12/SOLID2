@@ -27,7 +27,7 @@ namespace SOLID2.Base.Locations
                 {
                     var oldLevel = GetLevel(electricVehicle);
                     electricVehicle.Recharge();
-                    log.Add($"{employee.ID} recharged the {vName} from {oldLevel} % to {GetLevel(electricVehicle)} %.");
+                    log.Add($"{employee.Id} recharged the {vName} from {oldLevel} % to {GetLevel(electricVehicle)} %.");
                     return Result.Success(log);
                 }
                 else
