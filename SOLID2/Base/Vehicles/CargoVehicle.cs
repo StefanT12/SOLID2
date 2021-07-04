@@ -7,9 +7,9 @@ namespace SOLID2.Base
     {
         public bool CargoDoorIsOpen { get ; set ; }
 
-        public CargoVehicle(double fuel, IVehicle.VehicleEnum vehicleType, double refuelLevel):base(fuel, vehicleType, refuelLevel)
+        public CargoVehicle(double fuel, IVehicle.VehicleEnum vehicleType, double refuelLevel, bool cargoDoorIsOpen):base(fuel, vehicleType, refuelLevel)
         {
-
+            CargoDoorIsOpen = cargoDoorIsOpen;
         }
     }
 }

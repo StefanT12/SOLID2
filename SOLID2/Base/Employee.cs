@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SOLID2.Base
 {
-    class Employee : IEmployee
+    public class Employee : IEmployee
     {
         public string ID { get; private set; }
 

@@ -35,7 +35,7 @@ namespace SOLID2.Base
 
             var vType = vehicle.VehicleType.ToString();
 
-            log.Add($"A {vType} arrived.");
+            log.Add($"A [{vType}] awaits at [Arrival].");
 
             IEmployee assignedEmployee = _AssignEmployee();
 

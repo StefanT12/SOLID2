@@ -15,14 +15,11 @@ namespace SOLID2.Base
         /// <returns></returns>
         public double GetPricing(IVehicle.VehicleEnum VehicleType)
         {
-            if (!_pricePerType.ContainsKey(VehicleType))
+            if(!_pricePerType.TryGetValue(VehicleType, out double price))
             {
-                return 1;
+                return -1;
             }
-            else
-            {
-                return _pricePerType[VehicleType];
-            }
+            return _pricePerType[VehicleType];
         }
         public Pricing(IDictionary<IVehicle.VehicleEnum, double> pricePerType)
         {

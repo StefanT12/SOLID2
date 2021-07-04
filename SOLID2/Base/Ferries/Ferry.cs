@@ -9,9 +9,8 @@ namespace SOLID2.Base
     public class Ferry: IFerry
     {
         public string Id { get; private set; }
-        private IList<IVehicle> _vehicleSpaces;
-        public double Profit { get; private set; }
 
+        private IList<IVehicle> _vehicleSpaces;
         public void Park(IVehicle vehicle)
         {
             if (_vehicleSpaces.Count < Size)

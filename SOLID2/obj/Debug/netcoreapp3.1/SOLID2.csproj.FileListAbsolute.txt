@@ -23,3 +23,4 @@ C:\Users\DanSipos\Downloads\SOLID2-main\SOLID2\obj\Debug\netcoreapp3.1\SOLID2.dl
 C:\Users\DanSipos\Downloads\SOLID2-main\SOLID2\obj\Debug\netcoreapp3.1\SOLID2.pdb
 C:\Users\DanSipos\Downloads\SOLID2-main\SOLID2\obj\Debug\netcoreapp3.1\SOLID2.genruntimeconfig.cache
 C:\Users\DanSipos\Downloads\SOLID2-main\SOLID2\obj\Debug\netcoreapp3.1\SOLID2.csprojAssemblyReference.cache
+C:\Users\SCALPADORE\source\repos\SOLID2\SOLID2\obj\Debug\netcoreapp3.1\SOLID2.csproj.AssemblyReference.cache

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace SOLID2.Base
 {
-    public class Refuel : IRegularLocation
+    public class GasStation : IRegularLocation
     {
         private int GetLevel(IGasVehicle gasVehicle)
         {
@@ -13,13 +13,11 @@ namespace SOLID2.Base
         }
         public Result RunOperations(IEmployee employee, IVehicle vehicle)
         {
-            var vName = vehicle.VehicleType.ToString();
-
             if (vehicle is IGasVehicle gasVehicle)
             {
                 var log = new List<string>();
 
-                log.Add($"{vehicle.VehicleType} arrived at [Refuel].");
+                log.Add($"[{vehicle.VehicleType}] arrived at [Gas Station].");
 
                 if (gasVehicle.NeedsRefueling)
                 {
@@ -27,13 +25,13 @@ namespace SOLID2.Base
 
                     gasVehicle.Refuel();
                     
-                    log.Add($"{employee.ID} refuelled the {vName} from {oldLevels} % to {GetLevel(gasVehicle)} %.");
+                    log.Add($"[{employee.ID}] refuelled the [{vehicle.VehicleType}] from {oldLevels} % to {GetLevel(gasVehicle)} %.");
 
                     return Result.Success(log);
                 }
                 else
                 {
-                    log.Add($"{vName} had {(int)(gasVehicle.FuelLevel * 100)} % fuel.");
+                    log.Add($"[{vehicle.VehicleType}] had {(int)(gasVehicle.FuelLevel * 100)} % fuel.");
                     return Result.Success(log);
                 }
             }

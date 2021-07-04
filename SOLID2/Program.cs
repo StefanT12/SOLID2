@@ -45,15 +45,15 @@ namespace SOLID2
                     (
                         new List<IEmbarkLocation>()
                         {
-                        new Embark(pricing, _docs[0], IVehicle.VehicleEnum.Car, IVehicle.VehicleEnum.Van),
-                        new Embark(pricing, _docs[1], IVehicle.VehicleEnum.Bus, IVehicle.VehicleEnum.Truck),
-                        new Embark(pricing, _docs[2], IVehicle.VehicleEnum.Electric, IVehicle.VehicleEnum.Hybrid)
+                        new EmbarkLocation(pricing, _docs[0], IVehicle.VehicleEnum.Car, IVehicle.VehicleEnum.Van),
+                        new EmbarkLocation(pricing, _docs[1], IVehicle.VehicleEnum.Bus, IVehicle.VehicleEnum.Truck),
+                        new EmbarkLocation(pricing, _docs[2], IVehicle.VehicleEnum.Electric, IVehicle.VehicleEnum.Hybrid)
                         },
                         new List<IRegularLocation>()
                         {
-                        new Refuel(),
-                        new CustomsInspect(),
-                        new Recharge()
+                        new GasStation(),
+                        new CustomsLocation(),
+                        new RechargeStation()
                         },
                         new List<IEmployee>()
                         {

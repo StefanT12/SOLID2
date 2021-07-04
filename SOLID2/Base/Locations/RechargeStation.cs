@@ -6,7 +6,7 @@ using System.Text;
 
 namespace SOLID2.Base.Locations
 {
-    public class Recharge : IRegularLocation
+    public class RechargeStation : IRegularLocation
     {
         private int GetLevel(IElectricVehicle electricVehicle)
         {

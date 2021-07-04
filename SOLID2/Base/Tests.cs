@@ -23,9 +23,9 @@ namespace SOLID2.Base
             _Print(log);
         }
 
-        public static void TestCargoProcessing(ITerminal terminal, double fuel)
+        public static void TestCargoProcessing(ITerminal terminal, double fuel, bool cargoDoorIsOpen)
         {
-            var log = terminal.ProcessVehicle(new CargoVehicle(fuel, IVehicle.VehicleEnum.Truck, 0.1));
+            var log = terminal.ProcessVehicle(new CargoVehicle(fuel, IVehicle.VehicleEnum.Truck, 0.1, cargoDoorIsOpen));
             _Print(log);
         }
     }

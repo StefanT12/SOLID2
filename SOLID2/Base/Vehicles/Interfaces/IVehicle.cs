@@ -19,9 +19,4 @@ namespace SOLID2.Base.Vehicles.Interfaces
 
         public VehicleEnum VehicleType { get; }
     }
-
-    public class Vehicle : IVehicle
-    {
-        public IVehicle.VehicleEnum VehicleType { get; set; }
-    }
 }

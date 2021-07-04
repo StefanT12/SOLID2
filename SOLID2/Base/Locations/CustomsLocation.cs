@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace SOLID2.Base
 {
-    public class CustomsInspect : IRegularLocation
+    public class CustomsLocation : IRegularLocation
     {
         public Result RunOperations(IEmployee employee, IVehicle vehicle)
         {
@@ -13,32 +13,32 @@ namespace SOLID2.Base
             {
                 var log = new List<string>();
 
-                log.Add($"{vehicle.VehicleType} arrived to [Customs].");
+                log.Add($"[{vehicle.VehicleType}] arrived to [Customs Location].");
 
                 if (!cVehicle.CargoDoorIsOpen)
                 {
-                    log.Add($"{vehicle.VehicleType} cargo door was closed.");
+                    log.Add($"[{vehicle.VehicleType}] cargo door was closed.");
                     cVehicle.CargoDoorIsOpen = true;
-                    log.Add($"Opening {vehicle.VehicleType} cargo door.");
+                    log.Add($"Opening [{vehicle.VehicleType}] cargo door.");
                 }
                 else
                 {
-                    log.Add($"{vehicle.VehicleType} door was open.");
+                    log.Add($"[{vehicle.VehicleType}] door was open.");
                 }
 
-                log.Add($"Inspecting {vehicle.VehicleType} cargo.");
+                log.Add($"Inspecting [{vehicle.VehicleType}] cargo.");
                 
                 //inspection??
                 //{
                 //
                 //}
 
-                log.Add($"The {vehicle.VehicleType} passed customs.");
+                log.Add($"The [{vehicle.VehicleType}] passed customs.");
 
 
                 cVehicle.CargoDoorIsOpen = false;
 
-                log.Add($"Closing {vehicle.VehicleType} cargo doors.");
+                log.Add($"Closing [{vehicle.VehicleType}] cargo door.");
 
                 cVehicle.CargoDoorIsOpen = false;
                 return Result.Success(log);
