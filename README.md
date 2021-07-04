@@ -11,7 +11,7 @@ https://github.com/Jinjinov/job-interview-solid-principles-test/tree/f3e93906da1
 
 Use the programming language of your choice to write an application (it can be a console / terminal application or an application with a GUI).
 The code must be modular and easily extensible.
-After you complete the first 5 tasks you will receive 3 very short additional tasks to test if the code is really easily extensible.
+After you complete the first tasks you will receive short additional tasks to test if the code is really easily extensible.
 
 Round 1:
 
