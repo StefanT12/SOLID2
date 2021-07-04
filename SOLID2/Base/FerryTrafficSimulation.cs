@@ -17,11 +17,7 @@ namespace SOLID2.Base
                     
                     var res = dock.ChangeFerry(newFerry);
 
-                    //--handle the results - 
-
-                    //
-
-                    return $"[SIM] {res.CodeMsg}...";
+                    return $"[SIM] {res}...";
                 }
             }
 

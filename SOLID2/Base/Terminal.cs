@@ -1,4 +1,5 @@
 ﻿using SOLID2.Base.Interfaces;
+using SOLID2.Base.Vehicles.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,7 +9,7 @@ namespace SOLID2.Base
     {
         public IList<IEmployee> Employees { get; }
 
-        private readonly IList<IOperation> _operations;
+        private readonly IList<ILocation> _locations;
         private IEmployee _AssignEmployee()
         {
             var assignedEmployee = Employees.FirstOrDefault(x=>x.IsAvailable);
@@ -40,13 +41,13 @@ namespace SOLID2.Base
 
             log.Add($"{ assignedEmployee.ID} will handle the {vType}");
 
-            for(int i = 0; i < _operations.Count; i++)
+            for(int i = 0; i < _locations.Count; i++)
             {
-                var result = _operations[i].Run(assignedEmployee, vehicle);
+                var result = _locations[i].RunOperations(assignedEmployee, vehicle);
                 
                 if (!result.IsNotFit)
                 {
-                    log.Add(result.CodeMsg);
+                    log.AddRange(result.Log);
                 }
                 
                 if (result.Failed )
@@ -63,23 +64,23 @@ namespace SOLID2.Base
             return log;
         }
 
-        public Terminal(IList<IEmbarkOperation> embarkOperations, IList<IRegularOperation> regularOperations, IList<IEmployee> employees)
+        public Terminal(IList<IEmbarkLocation> embarkLocations, IList<IRegularLocation> regularLocations, IList<IEmployee> employees)
         {
             Employees = employees;
 
-            var totalCount = regularOperations.Count + embarkOperations.Count;
+            var totalCount = regularLocations.Count + embarkLocations.Count;
 
-            _operations = new List<IOperation>(totalCount);
+            _locations = new List<ILocation>(totalCount);
 
             for (int i = 0; i < totalCount; i++)
             {
-                if(i < regularOperations.Count)
+                if(i < regularLocations.Count)
                 {
-                    _operations.Add(regularOperations[i]);
+                    _locations.Add(regularLocations[i]);
                 }
                 else
                 {
-                    _operations.Add(embarkOperations[i - regularOperations.Count]);
+                    _locations.Add(embarkLocations[i - regularLocations.Count]);
                 }
             }
         }

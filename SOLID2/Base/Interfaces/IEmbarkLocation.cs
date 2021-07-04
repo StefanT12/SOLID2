@@ -1,6 +1,7 @@
 ﻿namespace SOLID2.Base.Interfaces
 {
-    public interface IRegularOperation : IOperation
+    public interface IEmbarkLocation : ILocation
     {
+
     }
 }

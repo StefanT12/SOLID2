@@ -1,5 +1,7 @@
 ﻿using SOLID2.Base;
 using SOLID2.Base.Interfaces;
+using SOLID2.Base.Locations;
+using SOLID2.Base.Vehicles.Interfaces;
 using System;
 using System.Collections.Generic;
 
@@ -11,6 +13,16 @@ namespace SOLID2
         private const ConsoleKey _processVehicleKey = ConsoleKey.Q;
         private static ITerminal _terminal;
         private static IList<Dock> _docs;
+
+        private static void _PrintInstructions()
+        {
+            Console.Write("\n");
+
+            
+            Console.Write($"\nPress '{_stopTerminalKey}' to shut down Ferry Terminal App...");
+            Console.Write($"\nPress '{_processVehicleKey}' to proccess a vehicle...");
+        }
+
         static void Main(string[] args)
         {
             //create terminal
@@ -19,24 +31,29 @@ namespace SOLID2
                     {IVehicle.VehicleEnum.Car, 3},
                     {IVehicle.VehicleEnum.Van, 4},
                     {IVehicle.VehicleEnum.Bus, 5},
-                    {IVehicle.VehicleEnum.Truck, 6}
+                    {IVehicle.VehicleEnum.Truck, 6},
+                    {IVehicle.VehicleEnum.Electric, 1},
+                    {IVehicle.VehicleEnum.Hybrid, 2}
                 });
 
                 _docs = new List<Dock>();
                 _docs.Add(new Dock(FerryFactory.Create($"{FerryRandNameGen.CreateRandomName()}_{FerryFactory.FerryType.Small}", FerryFactory.FerryType.Small)));
                 _docs.Add(new Dock(FerryFactory.Create($"{FerryRandNameGen.CreateRandomName()}_{FerryFactory.FerryType.Large}", FerryFactory.FerryType.Large)));
+                _docs.Add(new Dock(FerryFactory.Create($"{FerryRandNameGen.CreateRandomName()}_{FerryFactory.FerryType.Eco}", FerryFactory.FerryType.Eco)));
 
                 _terminal = new Terminal
                     (
-                        new List<IEmbarkOperation>()
+                        new List<IEmbarkLocation>()
                         {
                         new Embark(pricing, _docs[0], IVehicle.VehicleEnum.Car, IVehicle.VehicleEnum.Van),
-                        new Embark(pricing, _docs[1], IVehicle.VehicleEnum.Bus, IVehicle.VehicleEnum.Truck)
+                        new Embark(pricing, _docs[1], IVehicle.VehicleEnum.Bus, IVehicle.VehicleEnum.Truck),
+                        new Embark(pricing, _docs[2], IVehicle.VehicleEnum.Electric, IVehicle.VehicleEnum.Hybrid)
                         },
-                        new List<IRegularOperation>()
+                        new List<IRegularLocation>()
                         {
-                        new RefuelVehicle(IVehicle.VehicleEnum.Car, IVehicle.VehicleEnum.Van, IVehicle.VehicleEnum.Bus, IVehicle.VehicleEnum.Truck),
-                        new CustomsInspect(IVehicle.VehicleEnum.Van, IVehicle.VehicleEnum.Truck)
+                        new Refuel(),
+                        new CustomsInspect(),
+                        new Recharge()
                         },
                         new List<IEmployee>()
                         {
@@ -46,16 +63,15 @@ namespace SOLID2
                         }
                     );
             }
-            
-            Console.Write("\nFerry Terminal App Initiated...");
-            Console.Write($"\nPress '{_stopTerminalKey}' to shut down Ferry Terminal App...");
-            Console.Write($"\nPress '{_processVehicleKey}' to proccess a vehicle...");
 
-            {
-                //var test = new Tests();
-                //test.TestCarProcessing(_terminal);
-                //return;
-            }
+            Console.Write("\nFerry Terminal App Initiated...");
+
+            _PrintInstructions();
+
+            //{
+            //    Tests.TestHybridProcessing(_terminal,0.6,0.6);
+            //    return;
+            //}
 
             while (true)
             {
@@ -73,6 +89,8 @@ namespace SOLID2
                     var simMsg = FerryTrafficSimulation.RunSimulation(_docs);
 
                     Console.Write($"\n{simMsg}");
+
+                    _PrintInstructions();
                 }
                 if (key == _stopTerminalKey)
                 {

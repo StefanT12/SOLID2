@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SOLID2.Base.Vehicles.Interfaces;
+using System;
 using System.Collections.Generic;
 
 namespace SOLID2.Base

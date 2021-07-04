@@ -1,4 +1,6 @@
-﻿namespace SOLID2.Base
+﻿using System.Collections.Generic;
+
+namespace SOLID2.Base
 {
     public enum ResultCode
     {
@@ -22,31 +24,40 @@
     public class Result
     {
         public ResultCode Code { get; }
-        public string CodeMsg { get; set; }
+        public IList<string> Log { get; set; }
 
         public bool Succeeded => Code == ResultCode.Success;
         public bool Failed => Code == ResultCode.Fail;
         public bool Embarked => Code == ResultCode.Embark;
         public bool IsNotFit => Code == ResultCode.NotFit;
 
-        public static Result Embark(string employeeID, string ferryId, string vehicleType, string additionalMsg = "none")
+        public static Result Embark()
         {
-            return new Result(ResultCode.Embark) { CodeMsg = $"{employeeID} parked the vehicle {vehicleType} on ferry {ferryId}, Additional Notes: {additionalMsg}" };
+            return new Result(ResultCode.Embark);//$"{employeeID} parked the vehicle {vehicleType} on ferry {ferryId}, Additional Notes: {additionalMsg}"
+        }
+        public static Result Embark(IList<string> log)
+        {
+            return new Result(ResultCode.Embark) { Log = log };//$"{employeeID} parked the vehicle {vehicleType} on ferry {ferryId}, Additional Notes: {additionalMsg}"
         }
 
-        public static Result Fail(string msg)
+        public static Result Fail()
         {
-            return new Result(ResultCode.Fail) { CodeMsg = msg };
+            return new Result(ResultCode.Fail);// { CodeMsg = msg };
         }
 
-        public static Result Success(string msg)
+        public static Result Fail(IList<string> log)
         {
-            return new Result (ResultCode.Success) { CodeMsg = msg };
+            return new Result(ResultCode.Fail) { Log = log };
         }
 
         public static Result Success()
         {
             return new Result(ResultCode.Success);
+        }
+
+        public static Result Success(IList<string> log)
+        {
+            return new Result(ResultCode.Success) { Log = log };
         }
 
         public static Result NotFit()

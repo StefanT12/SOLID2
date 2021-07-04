@@ -1,14 +1,15 @@
-﻿using System;
+﻿using SOLID2.Base.Vehicles.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SOLID2.Base.Operations
+namespace SOLID2.Base.Locations
 {
-    public abstract class Operation : IOperation
+    public abstract class FlagBasedLocation : ILocation
     {
         private readonly IVehicle.VehicleEnum VehicleEnums;
 
-        public Result Run(IEmployee employee, IVehicle vehicle)
+        public Result RunOperations(IEmployee employee, IVehicle vehicle)
         {
             
             if ((VehicleEnums & vehicle.VehicleType) == vehicle.VehicleType)
@@ -20,7 +21,7 @@ namespace SOLID2.Base.Operations
 
         protected abstract Result  InternalLogic(IEmployee employee, IVehicle vehicle);
 
-        public Operation(params IVehicle.VehicleEnum[] vehicleType)
+        public FlagBasedLocation(params IVehicle.VehicleEnum[] vehicleType)
         {
             for (int i = 0; i < vehicleType.Length; i++)
             {

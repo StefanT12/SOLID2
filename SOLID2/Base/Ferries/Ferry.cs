@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SOLID2.Base.Vehicles.Interfaces;
+using System;
 using System.Collections.Generic;
 
 using System.Linq;
@@ -11,14 +12,20 @@ namespace SOLID2.Base
         private IList<IVehicle> _vehicleSpaces;
         public double Profit { get; private set; }
 
-        public Result FillUpSpace(IVehicle vehicle)
+        public void Park(IVehicle vehicle)
         {
             if (_vehicleSpaces.Count < Size)
             {
                 _vehicleSpaces.Add(vehicle);
-                return Result.Success();
             }
-            return Result.Fail ("No Free Space");
+        }
+
+        public void PurgeLastVehicle()
+        {
+            if(_vehicleSpaces.Count > 0)
+            {
+                _vehicleSpaces.RemoveAt(_vehicleSpaces.Count - 1);
+            }
         }
 
         public bool IsFull

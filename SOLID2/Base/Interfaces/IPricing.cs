@@ -1,4 +1,6 @@
-﻿namespace SOLID2.Base
+﻿using SOLID2.Base.Vehicles.Interfaces;
+
+namespace SOLID2.Base
 {
     public interface IPricing
     {
