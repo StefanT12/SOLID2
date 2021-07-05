@@ -109,27 +109,63 @@ The interface segregation, substitution & polymorphism kept the architecture eas
 
 Example: 
 
-Method RunOperations in ILocation requires an IVehicle but, in a class extending it - such as GasStation- more functionality is needed - such as Refuel and FuelLevel -. Other locations however, may not need that type of functionality. Instead of making a bigger interface, clutter the location logic,and expose all sort of functionality to the wrong locations, I have chosen to:
+Method RunOperations in ILocation requires an IVehicle but, in a class extending it - such as GasStation- more functionality is needed - such as Refuel and FuelLevel -. Other locations however (like RechargeStation location for electric vehicles), may not need that type of functionality. Instead of making a bigger interface, clutter location logic, and expose all sort of functionality to the wrong locations, I have chosen to:
 1. Make smaller interfaces, each dealing with one aspect of the vehicle (IGasVehicle, ICargoVehicle, IElectricVehicle).
-2. Implement their functionality at a class level (CargoVehicle inherits from GasVehicle - which implements IGasVehicle and IVehicle - and implements ICargoVehicle).
+2. Implement their functionality at a class level 
+	(CargoVehicle inherits from GasVehicle - which implements IGasVehicle and IVehicle - and implements ICargoVehicle).
+	(HybridVehicle implements IGasVehicle, IVehicle, IElectricVehicle)
 3. Pass the entities created with that class constructor as an interface (I pass CargoVehicle as IVehicle in ILocation.RunOperations method).
 Example of what this does:
-A Truck then becomes a CargoVehicle inheriting from GasVehicle and extending IVehicle, IGasVehicle, ICargoVehicle. The GasStation can then cast it from IVehicle as IGasVehicle and use it as its needed.
+
+A Truck then becomes a CargoVehicle inheriting from GasVehicle and extending IVehicle, IGasVehicle, ICargoVehicle. The GasStation can then cast it from IVehicle as IGasVehicle and use it as its needed, while the RechargeStation will not execute anything with it because it cannot be substituted for IElectricVehicle.
+
+This way, many other types of operations and vehicles can be added without any major archtiectural changes.
+---
+Logging:
+
+The project needed a logging proccess to document each operation applied to the vehicle in each location available. The class Result contains an IList<string> (for logs) that all locations are forced to return to the terminal. Once the terminal finishes with all locations, it then passes a log made out of compiled Results which is then printed in Program.cs.
+
+ 
+This approach separates the Terminal from being dependent on a console app but as well separates concerns (in my opinion, it is not the Terminal's concern to print messages in the console).
+
+Errors/Conflicting cases, method returns:
+
+Handled in most cases by a class Result, which has an enum for result codes. Locations generate Result instances based on what is happening inside them. In this scenario, Terminal then decides how to interpret the results appropriately
+
+Essentially, the class Result is used for both logging and conflicting cases (if any).
+
+---
+Factory Pattern:
+
+Hides the implementation and random generation of vehicles. Everything that was needed in this exercie was a method that returns a randomly generated vehicle in the form of IVehicle, that is then passed to the Terminal and its Locations.
 
 ---
 
-I have decided to keep a log of all the operations performed that I print in the Program.cs instead of printing in ILocation derived classes. This separates the Terminal from being dependent on a console app but as well separates concerns (in my opinion, it is not the Terminal's concern to print messages in the console).
+Testing
+
+Before creating the random generation / simulation, I had to test vehicles passing through the terminal I have done so with the Tests class. Its static nature makes it easy to call and the specificity & size of each test inside (one specific vehicle ran one time through the Terminal) proved to be instrumental when debugging and creating new features.
 
 ---
 
-I used the Factory to hide the implementation and random generation of vehicles. Everything that was needed in this exercie was a method that returns a randomly generated vehicle in the form of IVehicle, that is then passed to the Terminal and its Locations.
+Refactoring
+
+10 iterations of refactoring. With each new one, a cleaner version of the project was achieved.
+
+E.g: Inside VehicleFactory, instead of the switch, I used delegates and templates stored in dictionaries with enums as keys to create instances of random vehicles (one can imagine the errors this practice is prone to).
 
 ---
 
-I am handling conflicting cases by using a class Result, which has an enum for result codes and a IList<string> for logging. Locations generate Result instances based on what is happening inside them. In this scenario, Terminal then decides how to interpret the results appropriately but as well append to its log the process (because locations "document" in the IList<string> of Result what they do to the vehicle) 
+Future Improvements
+
+-Use generics or find patterns for VehicleFactory (values are hardcoded inside logic - not a good practice)
+-Refactor Results - it initializes with a List every time is needed (perfomance consuming)
+-Refactor FlagBasedLocation - it is useless, I only have one location type that uses it (Embarklocation). Vital code can be migrated there.
+
+-Clean namespaces / make namespaces
 
 ---
 
+Overall, the exercise was solved for in a manner that is easily extendable if other features are needed. 
 
 
 
