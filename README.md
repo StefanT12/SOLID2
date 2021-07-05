@@ -99,10 +99,8 @@ RegularLocation - prepares the vehicle for embarking
 EmbarkLocation - embarks the vehicle
 
 Ferry - stores ferry data & methods to manipulate it
- .
- .
- .
-etc
+
+...etc
 
 This has the advantage of having a readable architecture and keep the efforts small but focused (one class/purpose at a time).
 
