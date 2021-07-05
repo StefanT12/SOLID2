@@ -167,7 +167,9 @@ Future Improvements:
 	
 ---
 
-Overall, the exercise was solved for in a manner that is easily extendable if other features are needed. 
+Overall, the exercise was solved for through some of the SOLID principles and patterns in a manner that is easily extendable if other features are needed. 
+
+One thing extra that I tried to do is pretend code can fail at ILocation.RunOperations. While I have not explored it thoroughly, the way the code is written (ILocation.RunOperations can return a fail as a result with a log attached to it; moreover, the terminal breaks the process on fail) allows for easy handling of fails in case future features may need it.  
 
 
 
