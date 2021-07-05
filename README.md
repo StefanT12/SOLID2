@@ -119,7 +119,8 @@ Example of what this does:
 
 A Truck then becomes a CargoVehicle inheriting from GasVehicle and extending IVehicle, IGasVehicle, ICargoVehicle. The GasStation can then cast it from IVehicle as IGasVehicle and use it as its needed, while the RechargeStation will not execute anything with it because it cannot be substituted for IElectricVehicle.
 
-This way, many other types of operations and vehicles can be added without any major archtiectural changes.
+This way, many other types of operations and vehicles can be added without any major architectural changes.
+
 ---
 Logging:
 
