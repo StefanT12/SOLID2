@@ -90,55 +90,27 @@ Round 2:
 
 # Solution:
 
-I identified classes from the assignment text and modeled them based on the responsibility principle, like so:
+I have used the single responsibility principle when modelling classes to give them a simple purpose, like so:
 
----
+Terminal - processes vehicle from arrival to embarking
+RegularLocation - prepares the vehicle for embarking
+EmbarkLocation - embarks the vehicle
+Ferry - stores ferry data & methods to manipulate it
+.
+.
+.
+etc
 
-Terminal - processes Vehicle from arrival to embarked.
+This has the advantage of having a readable architecture and keep the efforts small but focused (one class/purpose at a time).
 
-1. Employees - holds employee data & functions to change it.
-2. Locations     
+The interface segregation, substitution & polymorphism kept the architecture easily extendable and modular. 
 
-The terminal constructor asks for 2 tipes of locations:
-1. RegularLocation - prepares vehicle for embarking (there are multiple such locations such as GasStation or ArrivalLocation).
-2. EmbarkLocation - embarks the vehicles (there multiple embark locations for multiple types of vehicles).
-
-This is done because embarking locations are the last the vehicle should visit after it received modifications from it.
-The terminal constructor all of them to a ILocation list (with the regular locations first, then the Embark locations). The lack of separation between different locations allows for a simpler code execution of location operations, like so:
-
-            for(int i = 0; i < _locations.Count; i++)
-            {
-                var result = _locations[i].RunOperations(assignedEmployee, vehicle);
-                
-                if (!result.IsNotFit)
-                {
-                    log.Add("........");//separates location logs
-                    log.AddRange(result.Log);
-                }
-                
-                if (result.Failed || result.Embarked)
-                {
-                    break;
-                }
-            }
-
----
-Dock - holds a ferry & methods to replace it
-1. Ferry - holds the ferry data (places occupied/free) & methods to change it.   
-
-Misc
-1. Pricing - holds pricing data for the tickets
-2. FerryRandNameGen - generates a random name for ferries
-3. FerryTrafficSimulation - simulates the ferry
-
-
-
-
+Example: 
 
 Method RunOperations in ILocation requires an IVehicle but, in a class extending it - such as GasStation- more functionality is needed - such as Refuel and FuelLevel -. Other locations however, may not need that type of functionality. Instead of making a bigger interface, clutter the location logic,and expose all sort of functionality to the wrong locations, I have chosen to:
-1. make smaller interfaces, each dealing with one aspect of the vehicle (IGasVehicle, ICargoVehicle, IElectricVehicle).
-2. implement their functionality at a class level (CargoVehicle inherits from GasVehicle - which implements IGasVehicle and IVehicle - and implements ICargoVehicle).
-3. pass the entities created with that class constructor as an interface (I pass CargoVehicle as IVehicle in ILocation.RunOperations method).
+1. Make smaller interfaces, each dealing with one aspect of the vehicle (IGasVehicle, ICargoVehicle, IElectricVehicle).
+2. Implement their functionality at a class level (CargoVehicle inherits from GasVehicle - which implements IGasVehicle and IVehicle - and implements ICargoVehicle).
+3. Pass the entities created with that class constructor as an interface (I pass CargoVehicle as IVehicle in ILocation.RunOperations method).
 A Truck then becomes a CargoVehicle inheriting from GasVehicle and extending IVehicle, IGasVehicle, ICargoVehicle. This allows the GasStation to cast it from IVehicle as IGasVehicle and use it as its needed.
 
 
