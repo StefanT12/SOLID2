@@ -3,7 +3,7 @@ A programming exercise that test the understanding of basic principles and patte
 
 The test should be solved in two rounds, their purpose is to check if the applicant can plan ahead and write extensible code before additional features are known.
 
-The test was modified so as to make it more challenging.
+The test was modified so as to make it more challenging. Source of the test:
 
 https://github.com/Jinjinov/job-interview-solid-principles-test/tree/f3e93906da129dc2e5939379d31129e08f3631e4
 
