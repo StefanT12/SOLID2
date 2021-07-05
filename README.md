@@ -164,7 +164,7 @@ Future Improvements:
 -Refactor Results.cs - it initializes with a List every time is needed (perfomance consuming);
 	
 -Clean namespaces / make namespaces (the project structure -namespace-wise- could use some restructuring)
-
+	
 ---
 
 Overall, the exercise was solved for in a manner that is easily extendable if other features are needed. 
