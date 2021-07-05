@@ -1,5 +1,5 @@
  # SOLID principles test/exercise:
-A programming job interview questions that test the understanding of basic principles and patterns
+A programming exercise that test the understanding of basic principles and patterns
 
 The test should be solved in two rounds, their purpose is to check if the applicant can plan ahead and write extensible code before additional features are known.
 
