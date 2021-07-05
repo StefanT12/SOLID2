@@ -159,13 +159,11 @@ E.g: Inside VehicleFactory, instead of the switch, I used delegates and template
 
 Future Improvements:
 
--Use generics or find patterns for VehicleFactory (values are hardcoded inside logic - not a good practice);
+-Use generics or find patterns for VehicleFactory.cs to replace that switch statement (values are hardcoded inside logic - despite it working its not an elegant solution);
 	
--Refactor Results - it initializes with a List every time is needed (perfomance consuming);
+-Refactor Results.cs - it initializes with a List every time is needed (perfomance consuming);
 	
--Refactor FlagBasedLocation - it is useless, I only have one location type that uses it (Embarklocation). Vital code can be migrated there;
-
--Clean namespaces / make namespaces.
+-Clean namespaces / make namespaces (the project structure -namespace-wise- could use some restructuring)
 
 ---
 
