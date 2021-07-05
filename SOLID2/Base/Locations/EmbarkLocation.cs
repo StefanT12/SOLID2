@@ -5,12 +5,19 @@ using System.Collections.Generic;
 
 namespace SOLID2.Base
 {
-    public class EmbarkLocation : FlagBasedLocation, IEmbarkLocation
+    public class EmbarkLocation : IEmbarkLocation
     {
         private readonly IDockFerryAccess _dock;
 
-        protected override Result InternalLogic(IEmployee employee, IVehicle vehicle)
+        private readonly IVehicle.VehicleEnum _vehicleEnums;
+
+        public Result RunOperations(IEmployee employee, IVehicle vehicle)
         {
+            if ((_vehicleEnums & vehicle.VehicleType) != vehicle.VehicleType)
+            {
+                return Result.NotFit();
+            }
+
             var log = new List<string>();
 
             log.Add($"[{vehicle.VehicleType}] arrived at [Embark Location] for ferry [{_dock.Ferry.Id}].");
@@ -18,9 +25,9 @@ namespace SOLID2.Base
             if (!_dock.Ferry.IsFull)
             {
                 log.Add($"[{employee.Id}] found a free parking place for [{vehicle.VehicleType}] on [{_dock.Ferry.Id}].");
-                
+
                 _dock.Ferry.Park(vehicle);
-                
+
                 log.Add($"[{vehicle.VehicleType}] was parked on [{_dock.Ferry.Id}].");
 
                 return Result.Embark(log);
@@ -30,9 +37,13 @@ namespace SOLID2.Base
             return Result.Fail(log);
         }
 
-        public EmbarkLocation(IDockFerryAccess dock, params IVehicle.VehicleEnum[] vehicleType): base(vehicleType)
+        public EmbarkLocation(IDockFerryAccess dock, params IVehicle.VehicleEnum[] vehicleTypes)
         {
             _dock = dock;
+            for (int i = 0; i < vehicleTypes.Length; i++)
+            {
+                _vehicleEnums |= vehicleTypes[i];
+            }
         }
     }
 }
