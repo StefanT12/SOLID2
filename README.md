@@ -103,6 +103,8 @@ etc
 
 This has the advantage of having a readable architecture and keep the efforts small but focused (one class/purpose at a time).
 
+---
+
 The interface segregation, substitution & polymorphism kept the architecture easily extendable and modular. 
 
 Example: 
@@ -111,7 +113,23 @@ Method RunOperations in ILocation requires an IVehicle but, in a class extending
 1. Make smaller interfaces, each dealing with one aspect of the vehicle (IGasVehicle, ICargoVehicle, IElectricVehicle).
 2. Implement their functionality at a class level (CargoVehicle inherits from GasVehicle - which implements IGasVehicle and IVehicle - and implements ICargoVehicle).
 3. Pass the entities created with that class constructor as an interface (I pass CargoVehicle as IVehicle in ILocation.RunOperations method).
-A Truck then becomes a CargoVehicle inheriting from GasVehicle and extending IVehicle, IGasVehicle, ICargoVehicle. This allows the GasStation to cast it from IVehicle as IGasVehicle and use it as its needed.
+Example of what this does:
+A Truck then becomes a CargoVehicle inheriting from GasVehicle and extending IVehicle, IGasVehicle, ICargoVehicle. The GasStation can then cast it from IVehicle as IGasVehicle and use it as its needed.
+
+---
+
+I have decided to keep a log of all the operations performed that I print in the Program.cs instead of printing in ILocation derived classes. This separates the Terminal from being dependent on a console app but as well separates concerns (in my opinion, it is not the Terminal's concern to print messages in the console).
+
+---
+
+I used the Factory to hide the implementation and random generation of vehicles. Everything that was needed in this exercie was a method that returns a randomly generated vehicle in the form of IVehicle, that is then passed to the Terminal and its Locations.
+
+---
+
+I am handling conflicting cases by using a class Result, which has an enum for result codes and a IList<string> for logging. Locations generate Result instances based on what is happening inside them. In this scenario, Terminal then decides how to interpret the results appropriately but as well append to its log the process (because locations "document" in the IList<string> of Result what they do to the vehicle) 
+
+---
+
 
 
 
