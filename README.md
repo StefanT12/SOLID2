@@ -143,13 +143,13 @@ Hides the implementation and random generation of vehicles. Everything that was 
 
 ---
 
-Testing
+Testing:
 
 Before creating the random generation / simulation, I had to test vehicles passing through the terminal I have done so with the Tests class. Its static nature makes it easy to call and the specificity & size of each test inside (one specific vehicle ran one time through the Terminal) proved to be instrumental when debugging and creating new features.
 
 ---
 
-Refactoring
+Refactoring:
 
 10 iterations of refactoring. With each new one, a cleaner version of the project was achieved.
 
@@ -157,15 +157,15 @@ E.g: Inside VehicleFactory, instead of the switch, I used delegates and template
 
 ---
 
-Future Improvements
+Future Improvements:
 
--Use generics or find patterns for VehicleFactory (values are hardcoded inside logic - not a good practice)
+-Use generics or find patterns for VehicleFactory (values are hardcoded inside logic - not a good practice);
 	
--Refactor Results - it initializes with a List every time is needed (perfomance consuming)
+-Refactor Results - it initializes with a List every time is needed (perfomance consuming);
 	
--Refactor FlagBasedLocation - it is useless, I only have one location type that uses it (Embarklocation). Vital code can be migrated there.
+-Refactor FlagBasedLocation - it is useless, I only have one location type that uses it (Embarklocation). Vital code can be migrated there;
 
--Clean namespaces / make namespaces
+-Clean namespaces / make namespaces.
 
 ---
 
