@@ -159,7 +159,9 @@ E.g: Inside VehicleFactory, instead of the switch, I used delegates and template
 Future Improvements
 
 -Use generics or find patterns for VehicleFactory (values are hardcoded inside logic - not a good practice)
+	
 -Refactor Results - it initializes with a List every time is needed (perfomance consuming)
+	
 -Refactor FlagBasedLocation - it is useless, I only have one location type that uses it (Embarklocation). Vital code can be migrated there.
 
 -Clean namespaces / make namespaces
